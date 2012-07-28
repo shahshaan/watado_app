@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     
-  @seatgeek = JSON.parse(open('http://api.seatgeek.com/1/events/in_your_area.json?zipcode=60614').read)
+  @seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=10').read)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -87,4 +87,23 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def import
+    Event.destroy_all
+    
+    seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=10').read)
+    
+    seatgeek['events'].each do |listing|
+      a = Event.new
+      a.name = listing['short_title']
+      a.url = listing['url']
+      a.category = listing['type']
+      a.image = listing["performers"].first['image']
+      
+    	a.save
+    end
+    
+    redirect_to '/events'
+  end
+
 end

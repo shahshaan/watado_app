@@ -22,10 +22,10 @@
     <td><%= event.date %></td>
     <td><%= event.start_time %></td>
     <td><%= event.end_time %></td>
-    <td><%= event.image %></td>
+    <td><%= image_tag event.image %></td>
     <td><%= event.category %></td>
     <td><%= event.name %></td>
-    <td><%= event.url %></td>
+    <td><%= link_to 'Tickets', event.url %></td>
     <td><%= event.venue %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
@@ -37,3 +37,6 @@
 <br />
 
 <%= link_to 'New Event', new_event_path %>
+
+<%= link_to 'Update Listing', '/import_events' %>
+

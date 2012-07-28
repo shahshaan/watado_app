@@ -4,11 +4,11 @@ require 'open-uri'
 require 'json'
 
 
-@seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=100').read)
+seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=10').read)
 
 
-@seatgeek.each do |listing|
-  a = Event.new
-  a.name = listing['short_title']
-  a.save
+seatgeek['events'].each do |listing|
+  	a = Event.create
+    a.name = listing['title'] 
+	  a.save 
 end
