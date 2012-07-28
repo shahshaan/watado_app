@@ -1,8 +1,6 @@
 require 'csv'
 
-# CSV.foreach(, :headers => true) do |row|
-#   Event.create!(row.to_hash)
-# end
+include Event
 
 
 

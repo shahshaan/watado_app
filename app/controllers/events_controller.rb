@@ -91,15 +91,18 @@ class EventsController < ApplicationController
   def import
     Event.destroy_all
     
-    seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=10').read)
+    seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=5').read)
     
     seatgeek['events'].each do |listing|
       a = Event.new
       a.name = listing['short_title']
-      a.url = listing['url']
+      # a.name = listing["performers"].first['short_name']
+      a.url = listing['venue']['url']
       a.category = listing['type']
       a.image = listing["performers"].first['image']
-      
+      # a.location = listing['venue']['address'] +" " listing['venue']['city'] + ","
+      a.location = "#{listing['venue']['address']} #{listing['venue']['city']}, #{listing['venue']['state']} #{listing['venue']['postal_code']}"
+    	a.venue = listing['venue']['name']
     	a.save
     end
     
