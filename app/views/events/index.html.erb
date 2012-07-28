@@ -1,5 +1,9 @@
 <h1>Listing events</h1>
 
+<%= form_tag("/import_events", :method => "get") do %>
+  <%= submit_tag("Update") %>
+<% end %>
+
 <table>
   <tr>
     <th>Location</th>
@@ -11,6 +15,7 @@
     <th>Name</th>
     <th>Url</th>
     <th>Venue</th>
+    <th>Zipcode</th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,8 +30,9 @@
     <td><%= image_tag event.image %></td>
     <td><%= event.category %></td>
     <td><%= event.name %></td>
-    <td><%= link_to 'Tickets', event.url %></td>
+    <td><%= link_to "Buy ticket", event.url %></td>
     <td><%= event.venue %></td>
+    <td><%= event.zipcode %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
     <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -37,6 +43,3 @@
 <br />
 
 <%= link_to 'New Event', new_event_path %>
-
-<%= link_to 'Update Listing', '/import_events' %>
-

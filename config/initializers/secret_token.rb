@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-WatadoApp::Application.config.secret_token = 'cb42171a5d1f8bb43ccec2d8a41aa462ca0a9710e3936d0601fde52633bcdf2beefb6ad874d21e7d19d96e626ff1b31a739162c368f8ca5cfdb3dc0a24b424a3'
+WatadoApp::Application.config.secret_token = '3d601e5d6abe9e2a4a0c5ec21ca788914cb0bddeb66d7f5d4946beb55cba6f3bcdfc35d159eab58725e3d6e604ca0e0e1ac5de2e557a65ee3d679e2154e48cb3'

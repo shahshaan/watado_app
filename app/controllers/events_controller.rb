@@ -1,26 +1,63 @@
-
-require 'open-uri'
-require 'json'
-
 class EventsController < ApplicationController
-  # GET /events
-  # GET /events.json
+
+def watado
+  
+end
+ 
+ def import
+   Event.destroy_all
+   
+   seatgeek = JSON.parse(open("http://api.seatgeek.com/2/events/?per_page=100").read)
+   
+   # add events from seatgeek.com to Event database
+   
+   seatgeek['events'].each do |listing|
+     
+      # if listing['venue']['state'] == "IL"
+      
+      a = Event.new
+      a.name = listing['short_title']
+      a.url = listing['venue']['url']
+      a.category = listing['type']
+      a.image = listing["performers"].first['image']
+      # if a.image == nil
+      #         a.image = listing["venue"].first['image']
+      #       end
+      a.location = "#{listing['venue']['address']} #{listing['venue']['city']}, #{listing['venue']['state']} #{listing['venue']['postal_code']}"
+      a.venue = listing['venue']['name']
+      a.zipcode = listing['venue']['postal_code']
+      a.date = listing['datetime_local']
+      a.start_time = listing['datetime_local']
+      a.save
+    end
+    # end
+    
+    # delete and Event instance if it doesn't have an image
+    Event.all.each do |event|
+              if event.image == nil
+                event.destroy
+              end
+            end
+      
+    redirect_to '/events'
+ end
+ 
+ # GET /events
+ # GET /events.json
   def index
     @events = Event.all
-    
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
+              format.html # index.html.erb
+              format.json { render json: @events }
+            end
+    
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    
-  @seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=10').read)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -79,34 +116,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to events_url }
-      format.json { head :no_content }
-    end
-  end
-  
-  def import
-    Event.destroy_all
-    
-    seatgeek = JSON.parse(open('http://api.seatgeek.com/2/events/?per_page=5').read)
-    
-    seatgeek['events'].each do |listing|
-      a = Event.new
-      a.name = listing['short_title']
-      # a.name = listing["performers"].first['short_name']
-      a.url = listing['venue']['url']
-      a.category = listing['type']
-      a.image = listing["performers"].first['image']
-      # a.location = listing['venue']['address'] +" " listing['venue']['city'] + ","
-      a.location = "#{listing['venue']['address']} #{listing['venue']['city']}, #{listing['venue']['state']} #{listing['venue']['postal_code']}"
-    	a.venue = listing['venue']['name']
-    	a.save
-    end
-    
-    redirect_to '/events'
-  end
-
+      
 end
+end
+

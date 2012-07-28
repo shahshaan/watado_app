@@ -2,22 +2,24 @@
 
 one:
   location: MyString
-  date: 2012-07-27
-  start_time: 2012-07-27 12:46:33
-  end_time: 2012-07-27 12:46:33
+  date: 2012-07-28
+  start_time: 2012-07-28 00:22:02
+  end_time: 2012-07-28 00:22:02
   image: MyString
   category: MyString
   name: MyString
   url: MyString
   venue: MyString
+  zipcode: 1
 
 two:
   location: MyString
-  date: 2012-07-27
-  start_time: 2012-07-27 12:46:33
-  end_time: 2012-07-27 12:46:33
+  date: 2012-07-28
+  start_time: 2012-07-28 00:22:02
+  end_time: 2012-07-28 00:22:02
   image: MyString
   category: MyString
   name: MyString
   url: MyString
   venue: MyString
+  zipcode: 1

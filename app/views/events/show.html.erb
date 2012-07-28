@@ -45,11 +45,10 @@
   <%= @event.venue %>
 </p>
 
-<% @seatgeek['events'].each do |listing| %>
-  	<% a = Event.new %>
-  	<% a.name = listing['title'] %>
-	<% a.save %>
-<% end %>
+<p>
+  <b>Zipcode:</b>
+  <%= @event.zipcode %>
+</p>
 
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
